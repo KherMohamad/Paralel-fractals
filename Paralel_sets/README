@@ -1,0 +1,7 @@
+Pentru inceput, am ales sa calculez matricele julia si mandelbrot in functii separate in afara functiei de thread, pentru a nu o aglomera de cod. Deasemenea am folosit matrice si variabile param separate pentru Julia si Mandelbrot pentru a simplifica procesul de paralelizare si a accentua in cod ca cele 2 sunt matrice diferite.
+
+	Am optat pentru paralelizarea buclei for interioare in functiile run_julia si run_mandelbrot, aceasta interand de la un start la un end (date ca parametrii) ce sunt calculate in functia de thread conform formulei de partitionare de la laborator (start = id * N/ P, end = min((id + 1), N) ).
+
+	Principala problema a paralelizarii acestui program a fost paralelizarea tranformarii din coordonate matematice in coordonate ecran, aceasta depinzand si de valori ale matricei in afara liniilor din intervalul start end. Solutia a fost asteptarea terminarii functiilor Julia si Mandelbrot de catre toate thread-urile, lucru realizat prin utilizarea unei bariere puse in functia thread dupa apelarea functiilor mandelbrot si julia, garantand ca intreaga matrice va fi procesata inainte de inversarea ei.
+
+
